@@ -5,6 +5,9 @@
  */
 package mainpackage;
 
+import java.util.Base64;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Mark
@@ -27,21 +30,218 @@ public class startframe extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        firstLabel = new javax.swing.JLabel();
+        textToEncodeField = new javax.swing.JTextField();
+        secondLabel = new javax.swing.JLabel();
+        encodedTextField = new javax.swing.JTextField();
+        encodeButton = new javax.swing.JButton();
+        decodeButton = new javax.swing.JButton();
+        cleanButton = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        fileMenu = new javax.swing.JMenu();
+        aboutMenu = new javax.swing.JMenuItem();
+        optionsMenu = new javax.swing.JMenu();
+        encodeMenu = new javax.swing.JMenuItem();
+        decodeMenu = new javax.swing.JMenuItem();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Base 64 Encoder/Decoder");
+        setResizable(false);
+
+        firstLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        firstLabel.setText("Text To Encode");
+
+        textToEncodeField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        secondLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        secondLabel.setText("Encoded Text ");
+
+        encodedTextField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        encodeButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        encodeButton.setText("Encode");
+        encodeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encodeButtonActionPerformed(evt);
+            }
+        });
+
+        decodeButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        decodeButton.setText("Decode");
+        decodeButton.setEnabled(false);
+        decodeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decodeButtonActionPerformed(evt);
+            }
+        });
+
+        cleanButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        cleanButton.setText("Clean");
+        cleanButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cleanButtonActionPerformed(evt);
+            }
+        });
+
+        fileMenu.setText("File");
+
+        aboutMenu.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        aboutMenu.setText("About");
+        aboutMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutMenuActionPerformed(evt);
+            }
+        });
+        fileMenu.add(aboutMenu);
+
+        jMenuBar1.add(fileMenu);
+
+        optionsMenu.setText("Options");
+
+        encodeMenu.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        encodeMenu.setText("Encode");
+        encodeMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encodeMenuActionPerformed(evt);
+            }
+        });
+        optionsMenu.add(encodeMenu);
+
+        decodeMenu.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        decodeMenu.setText("Decode");
+        decodeMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decodeMenuActionPerformed(evt);
+            }
+        });
+        optionsMenu.add(decodeMenu);
+
+        jMenuBar1.add(optionsMenu);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(secondLabel)
+                            .addComponent(firstLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(textToEncodeField)
+                            .addComponent(encodedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(encodeButton)
+                        .addGap(19, 19, 19)
+                        .addComponent(decodeButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(cleanButton)))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(firstLabel)
+                    .addComponent(textToEncodeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(secondLabel)
+                    .addComponent(encodedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(encodeButton)
+                    .addComponent(decodeButton)
+                    .addComponent(cleanButton))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void encodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encodeButtonActionPerformed
+        // TODO add your handling code here:
+
+        String textToEncode = textToEncodeField.getText();
+
+        System.out.println(textToEncode);
+
+        byte[] encodedBytes = Base64.getEncoder().encode(textToEncode.getBytes());
+
+        String encodedByteArray = new String(encodedBytes);
+
+        encodedTextField.setText(encodedByteArray);
+
+
+    }//GEN-LAST:event_encodeButtonActionPerformed
+
+    private void aboutMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuActionPerformed
+        // TODO add your handling code here:
+
+        JOptionPane.showMessageDialog(null, "Marco Lecona 2021");
+    }//GEN-LAST:event_aboutMenuActionPerformed
+
+    private void decodeMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decodeMenuActionPerformed
+        // TODO add your handling code here:
+
+        textToEncodeField.setText("");
+
+        encodedTextField.setText("");
+
+        firstLabel.setText("Text To Decode");
+
+        secondLabel.setText("Decoded Text");
+
+        encodeButton.setEnabled(false);
+
+        decodeButton.setEnabled(true);
+
+
+    }//GEN-LAST:event_decodeMenuActionPerformed
+
+    private void decodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decodeButtonActionPerformed
+        // TODO add your handling code here:
+
+        String textToEncode = textToEncodeField.getText();
+
+        byte[] decodedBytes = Base64.getDecoder().decode(textToEncode);
+
+        String decodedByteArray = new String(decodedBytes);
+
+        encodedTextField.setText(decodedByteArray);
+
+    }//GEN-LAST:event_decodeButtonActionPerformed
+
+    private void encodeMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encodeMenuActionPerformed
+        // TODO add your handling code here:
+
+        textToEncodeField.setText("");
+
+        encodedTextField.setText("");
+
+        firstLabel.setText("Text To Encode");
+
+        secondLabel.setText("Encoded Text");
+
+        encodeButton.setEnabled(true);
+
+        decodeButton.setEnabled(false);
+
+    }//GEN-LAST:event_encodeMenuActionPerformed
+
+    private void cleanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cleanButtonActionPerformed
+        // TODO add your handling code here:
+        
+        textToEncodeField.setText("");
+        encodedTextField.setText("");
+    }//GEN-LAST:event_cleanButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +279,18 @@ public class startframe extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem aboutMenu;
+    private javax.swing.JButton cleanButton;
+    private javax.swing.JButton decodeButton;
+    private javax.swing.JMenuItem decodeMenu;
+    private javax.swing.JButton encodeButton;
+    private javax.swing.JMenuItem encodeMenu;
+    private javax.swing.JTextField encodedTextField;
+    private javax.swing.JMenu fileMenu;
+    private javax.swing.JLabel firstLabel;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu optionsMenu;
+    private javax.swing.JLabel secondLabel;
+    private javax.swing.JTextField textToEncodeField;
     // End of variables declaration//GEN-END:variables
 }
