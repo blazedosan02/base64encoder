@@ -33,14 +33,10 @@ public class startframe extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenuItem1 = new javax.swing.JMenuItem();
-        base64Panel = new javax.swing.JPanel();
-        firstLabel = new javax.swing.JLabel();
-        base64FieldInput = new javax.swing.JTextField();
-        base64FieldOutput = new javax.swing.JTextField();
-        secondLabel = new javax.swing.JLabel();
         encodeButton = new javax.swing.JButton();
         decodeButton = new javax.swing.JButton();
         cleanButton = new javax.swing.JButton();
+        mainLayeredPane = new javax.swing.JLayeredPane();
         aesPanel = new javax.swing.JPanel();
         firstLabelAes = new javax.swing.JLabel();
         secondLabelAes = new javax.swing.JLabel();
@@ -48,7 +44,12 @@ public class startframe extends javax.swing.JFrame {
         aesFieldInput = new javax.swing.JTextField();
         aesKeyField = new javax.swing.JTextField();
         aesFieldOutPut = new javax.swing.JTextField();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        base64Panel = new javax.swing.JPanel();
+        firstLabel = new javax.swing.JLabel();
+        base64FieldInput = new javax.swing.JTextField();
+        base64FieldOutput = new javax.swing.JTextField();
+        secondLabel = new javax.swing.JLabel();
+        mainMenuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         aboutMenu = new javax.swing.JMenuItem();
         optionsMenu = new javax.swing.JMenu();
@@ -63,49 +64,6 @@ public class startframe extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Base 64 Encoder/Decoder");
         setResizable(false);
-
-        base64Panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        base64Panel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        base64Panel.setOpaque(false);
-
-        firstLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        firstLabel.setText("Text To Encode");
-
-        base64FieldInput.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-
-        base64FieldOutput.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-
-        secondLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        secondLabel.setText("Encoded Text ");
-
-        javax.swing.GroupLayout base64PanelLayout = new javax.swing.GroupLayout(base64Panel);
-        base64Panel.setLayout(base64PanelLayout);
-        base64PanelLayout.setHorizontalGroup(
-            base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(base64PanelLayout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addGroup(base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(secondLabel)
-                    .addComponent(firstLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(base64FieldInput)
-                    .addComponent(base64FieldOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(61, Short.MAX_VALUE))
-        );
-        base64PanelLayout.setVerticalGroup(
-            base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(base64PanelLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(firstLabel)
-                    .addComponent(base64FieldInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addGroup(base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(secondLabel)
-                    .addComponent(base64FieldOutput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(34, Short.MAX_VALUE))
-        );
 
         encodeButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         encodeButton.setText("Encode");
@@ -131,6 +89,9 @@ public class startframe extends javax.swing.JFrame {
                 cleanButtonActionPerformed(evt);
             }
         });
+
+        mainLayeredPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 204)));
+        mainLayeredPane.setLayout(new java.awt.CardLayout());
 
         aesPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 51)));
 
@@ -162,12 +123,12 @@ public class startframe extends javax.swing.JFrame {
                     .addComponent(aesFieldInput)
                     .addComponent(aesKeyField)
                     .addComponent(aesFieldOutPut, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         aesPanelLayout.setVerticalGroup(
             aesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, aesPanelLayout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
+                .addContainerGap(29, Short.MAX_VALUE)
                 .addGroup(aesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(firstLabelAes)
                     .addComponent(aesFieldInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -182,6 +143,53 @@ public class startframe extends javax.swing.JFrame {
                 .addGap(27, 27, 27))
         );
 
+        mainLayeredPane.add(aesPanel, "aesCard");
+
+        base64Panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        base64Panel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        base64Panel.setOpaque(false);
+
+        firstLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        firstLabel.setText("Text To Encode");
+
+        base64FieldInput.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        base64FieldOutput.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        secondLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        secondLabel.setText("Encoded Text ");
+
+        javax.swing.GroupLayout base64PanelLayout = new javax.swing.GroupLayout(base64Panel);
+        base64Panel.setLayout(base64PanelLayout);
+        base64PanelLayout.setHorizontalGroup(
+            base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(base64PanelLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addGroup(base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(secondLabel)
+                    .addComponent(firstLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(base64FieldInput)
+                    .addComponent(base64FieldOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(70, Short.MAX_VALUE))
+        );
+        base64PanelLayout.setVerticalGroup(
+            base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(base64PanelLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(firstLabel)
+                    .addComponent(base64FieldInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(secondLabel)
+                    .addComponent(base64FieldOutput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(44, Short.MAX_VALUE))
+        );
+
+        mainLayeredPane.add(base64Panel, "base64Card");
+
         fileMenu.setText("File");
 
         aboutMenu.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -193,7 +201,7 @@ public class startframe extends javax.swing.JFrame {
         });
         fileMenu.add(aboutMenu);
 
-        jMenuBar1.add(fileMenu);
+        mainMenuBar.add(fileMenu);
 
         optionsMenu.setText("Options");
 
@@ -225,40 +233,36 @@ public class startframe extends javax.swing.JFrame {
         });
         optionsMenu.add(decodeMenu);
 
-        jMenuBar1.add(optionsMenu);
+        mainMenuBar.add(optionsMenu);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(mainMenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 419, Short.MAX_VALUE)
-                .addComponent(encodeButton)
-                .addGap(18, 18, 18)
-                .addComponent(decodeButton)
-                .addGap(18, 18, 18)
-                .addComponent(cleanButton)
-                .addGap(268, 268, 268))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(base64Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(aesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(mainLayeredPane, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addComponent(encodeButton)
+                .addGap(49, 49, 49)
+                .addComponent(decodeButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cleanButton)
+                .addGap(31, 31, 31))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(base64Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(mainLayeredPane, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(aesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(encodeButton)
                     .addComponent(decodeButton)
                     .addComponent(cleanButton))
-                .addGap(31, 31, 31))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -396,9 +400,10 @@ public class startframe extends javax.swing.JFrame {
     private javax.swing.JMenu fileMenu;
     private javax.swing.JLabel firstLabel;
     private javax.swing.JLabel firstLabelAes;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JLabel keyLabel;
+    private javax.swing.JLayeredPane mainLayeredPane;
+    private javax.swing.JMenuBar mainMenuBar;
     private javax.swing.JMenu optionsMenu;
     private javax.swing.JLabel secondLabel;
     private javax.swing.JLabel secondLabelAes;
