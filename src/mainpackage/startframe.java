@@ -13,6 +13,8 @@ import javax.swing.JOptionPane;
  * @author Mark
  */
 public class startframe extends javax.swing.JFrame {
+    
+    String menuSelect = "";
 
     /**
      * Creates new form startframe
@@ -30,33 +32,80 @@ public class startframe extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
+        base64Panel = new javax.swing.JPanel();
         firstLabel = new javax.swing.JLabel();
-        textToEncodeField = new javax.swing.JTextField();
+        base64FieldInput = new javax.swing.JTextField();
+        base64FieldOutput = new javax.swing.JTextField();
         secondLabel = new javax.swing.JLabel();
-        encodedTextField = new javax.swing.JTextField();
         encodeButton = new javax.swing.JButton();
         decodeButton = new javax.swing.JButton();
         cleanButton = new javax.swing.JButton();
+        aesPanel = new javax.swing.JPanel();
+        firstLabelAes = new javax.swing.JLabel();
+        secondLabelAes = new javax.swing.JLabel();
+        keyLabel = new javax.swing.JLabel();
+        aesFieldInput = new javax.swing.JTextField();
+        aesKeyField = new javax.swing.JTextField();
+        aesFieldOutPut = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         aboutMenu = new javax.swing.JMenuItem();
         optionsMenu = new javax.swing.JMenu();
+        encodingMethodMenu = new javax.swing.JMenu();
+        base64Menu = new javax.swing.JMenuItem();
+        aesMenu = new javax.swing.JMenuItem();
         encodeMenu = new javax.swing.JMenuItem();
         decodeMenu = new javax.swing.JMenuItem();
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Base 64 Encoder/Decoder");
         setResizable(false);
 
+        base64Panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        base64Panel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        base64Panel.setOpaque(false);
+
         firstLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         firstLabel.setText("Text To Encode");
 
-        textToEncodeField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        base64FieldInput.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        base64FieldOutput.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         secondLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         secondLabel.setText("Encoded Text ");
 
-        encodedTextField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        javax.swing.GroupLayout base64PanelLayout = new javax.swing.GroupLayout(base64Panel);
+        base64Panel.setLayout(base64PanelLayout);
+        base64PanelLayout.setHorizontalGroup(
+            base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(base64PanelLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addGroup(base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(secondLabel)
+                    .addComponent(firstLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(base64FieldInput)
+                    .addComponent(base64FieldOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(61, Short.MAX_VALUE))
+        );
+        base64PanelLayout.setVerticalGroup(
+            base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(base64PanelLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(firstLabel)
+                    .addComponent(base64FieldInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(secondLabel)
+                    .addComponent(base64FieldOutput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(34, Short.MAX_VALUE))
+        );
 
         encodeButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         encodeButton.setText("Encode");
@@ -83,6 +132,56 @@ public class startframe extends javax.swing.JFrame {
             }
         });
 
+        aesPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 51)));
+
+        firstLabelAes.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        firstLabelAes.setText("Text To Encode");
+
+        secondLabelAes.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        secondLabelAes.setText("Encoded Text ");
+
+        keyLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        keyLabel.setText("Key");
+
+        aesFieldInput.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        aesKeyField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        javax.swing.GroupLayout aesPanelLayout = new javax.swing.GroupLayout(aesPanel);
+        aesPanel.setLayout(aesPanelLayout);
+        aesPanelLayout.setHorizontalGroup(
+            aesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(aesPanelLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(aesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(keyLabel)
+                    .addComponent(secondLabelAes)
+                    .addComponent(firstLabelAes))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(aesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(aesFieldInput)
+                    .addComponent(aesKeyField)
+                    .addComponent(aesFieldOutPut, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        aesPanelLayout.setVerticalGroup(
+            aesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, aesPanelLayout.createSequentialGroup()
+                .addContainerGap(31, Short.MAX_VALUE)
+                .addGroup(aesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(firstLabelAes)
+                    .addComponent(aesFieldInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(aesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(keyLabel)
+                    .addComponent(aesKeyField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(aesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(secondLabelAes)
+                    .addComponent(aesFieldOutPut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27))
+        );
+
         fileMenu.setText("File");
 
         aboutMenu.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -97,6 +196,16 @@ public class startframe extends javax.swing.JFrame {
         jMenuBar1.add(fileMenu);
 
         optionsMenu.setText("Options");
+
+        encodingMethodMenu.setText("Method");
+
+        base64Menu.setText("Base64");
+        encodingMethodMenu.add(base64Menu);
+
+        aesMenu.setText("Aes");
+        encodingMethodMenu.add(aesMenu);
+
+        optionsMenu.add(encodingMethodMenu);
 
         encodeMenu.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         encodeMenu.setText("Encode");
@@ -124,43 +233,32 @@ public class startframe extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 419, Short.MAX_VALUE)
+                .addComponent(encodeButton)
+                .addGap(18, 18, 18)
+                .addComponent(decodeButton)
+                .addGap(18, 18, 18)
+                .addComponent(cleanButton)
+                .addGap(268, 268, 268))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(secondLabel)
-                            .addComponent(firstLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textToEncodeField)
-                            .addComponent(encodedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(encodeButton)
-                        .addGap(19, 19, 19)
-                        .addComponent(decodeButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(cleanButton)))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(base64Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(aesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(firstLabel)
-                    .addComponent(textToEncodeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(secondLabel)
-                    .addComponent(encodedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addComponent(base64Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(aesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(encodeButton)
                     .addComponent(decodeButton)
                     .addComponent(cleanButton))
-                .addContainerGap())
+                .addGap(31, 31, 31))
         );
 
         pack();
@@ -169,7 +267,7 @@ public class startframe extends javax.swing.JFrame {
     private void encodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encodeButtonActionPerformed
         // TODO add your handling code here:
 
-        String textToEncode = textToEncodeField.getText();
+        String textToEncode = base64FieldInput.getText();
 
         System.out.println(textToEncode);
 
@@ -177,7 +275,7 @@ public class startframe extends javax.swing.JFrame {
 
         String encodedByteArray = new String(encodedBytes);
 
-        encodedTextField.setText(encodedByteArray);
+        base64FieldOutput.setText(encodedByteArray);
 
 
     }//GEN-LAST:event_encodeButtonActionPerformed
@@ -191,9 +289,9 @@ public class startframe extends javax.swing.JFrame {
     private void decodeMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decodeMenuActionPerformed
         // TODO add your handling code here:
 
-        textToEncodeField.setText("");
+        base64FieldInput.setText("");
 
-        encodedTextField.setText("");
+        base64FieldOutput.setText("");
 
         firstLabel.setText("Text To Decode");
 
@@ -209,22 +307,22 @@ public class startframe extends javax.swing.JFrame {
     private void decodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decodeButtonActionPerformed
         // TODO add your handling code here:
 
-        String textToEncode = textToEncodeField.getText();
+        String textToEncode = base64FieldInput.getText();
 
         byte[] decodedBytes = Base64.getDecoder().decode(textToEncode);
 
         String decodedByteArray = new String(decodedBytes);
 
-        encodedTextField.setText(decodedByteArray);
+        base64FieldOutput.setText(decodedByteArray);
 
     }//GEN-LAST:event_decodeButtonActionPerformed
 
     private void encodeMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encodeMenuActionPerformed
         // TODO add your handling code here:
 
-        textToEncodeField.setText("");
+        base64FieldInput.setText("");
 
-        encodedTextField.setText("");
+        base64FieldOutput.setText("");
 
         firstLabel.setText("Text To Encode");
 
@@ -239,8 +337,8 @@ public class startframe extends javax.swing.JFrame {
     private void cleanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cleanButtonActionPerformed
         // TODO add your handling code here:
         
-        textToEncodeField.setText("");
-        encodedTextField.setText("");
+        base64FieldInput.setText("");
+        base64FieldOutput.setText("");
     }//GEN-LAST:event_cleanButtonActionPerformed
 
     /**
@@ -280,17 +378,29 @@ public class startframe extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenu;
+    private javax.swing.JTextField aesFieldInput;
+    private javax.swing.JTextField aesFieldOutPut;
+    private javax.swing.JTextField aesKeyField;
+    private javax.swing.JMenuItem aesMenu;
+    private javax.swing.JPanel aesPanel;
+    private javax.swing.JTextField base64FieldInput;
+    private javax.swing.JTextField base64FieldOutput;
+    private javax.swing.JMenuItem base64Menu;
+    private javax.swing.JPanel base64Panel;
     private javax.swing.JButton cleanButton;
     private javax.swing.JButton decodeButton;
     private javax.swing.JMenuItem decodeMenu;
     private javax.swing.JButton encodeButton;
     private javax.swing.JMenuItem encodeMenu;
-    private javax.swing.JTextField encodedTextField;
+    private javax.swing.JMenu encodingMethodMenu;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JLabel firstLabel;
+    private javax.swing.JLabel firstLabelAes;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JLabel keyLabel;
     private javax.swing.JMenu optionsMenu;
     private javax.swing.JLabel secondLabel;
-    private javax.swing.JTextField textToEncodeField;
+    private javax.swing.JLabel secondLabelAes;
     // End of variables declaration//GEN-END:variables
 }
