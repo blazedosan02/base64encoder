@@ -6,8 +6,10 @@
 package mainpackage;
 
 import java.awt.CardLayout;
+import static java.nio.charset.StandardCharsets.UTF_8;
+import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
-import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,6 +19,9 @@ import javax.swing.JOptionPane;
 public class startframe extends javax.swing.JFrame {
 
     String menuSelect = "BASE64";
+
+    private static final int IV_LENGTH_BYTE = 12;
+    private static final int AES_KEY_BIT = 128;
 
     /**
      * Creates new form startframe
@@ -417,13 +422,12 @@ public class startframe extends javax.swing.JFrame {
 //        Cipher cipher = Cipher.getInstance("AES");
 //        cipher.init(Cipher.ENCRYPT_MODE, key, iv);
 //        byte[] cipherText = cipher.doFinal(textToEncode.getBytes());
-
     }
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws NoSuchAlgorithmException, Exception {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -447,12 +451,38 @@ public class startframe extends javax.swing.JFrame {
         }
         //</editor-fold>
 
+        String OUTPUT_FORMAT = "%-30s:%s";
+
+        String pText = "Hello World AES-GCM, Welcome to Cryptography!";
+
+        aesTest aesTest1 = new aesTest();
+
+        SecretKey secretKey = aesTest1.getAESKey(AES_KEY_BIT);
+
+        byte[] iv = aesTest1.getRandomNonce(IV_LENGTH_BYTE);
+
+        byte[] encryptedText = aesTest1.encryptWithPrefixIV(pText.getBytes(UTF_8), secretKey, iv);
+
+        System.out.println("\n------ AES GCM Encryption ------");
+        System.out.println(String.format(OUTPUT_FORMAT, "Input (plain text)", pText));
+        System.out.println(String.format(OUTPUT_FORMAT, "Key (hex)", aesTest1.hex(secretKey.getEncoded())));
+        System.out.println(String.format(OUTPUT_FORMAT, "IV  (hex)", aesTest1.hex(iv)));
+        System.out.println(String.format(OUTPUT_FORMAT, "Encrypted (hex) ", aesTest1.hex(encryptedText)));
+
+        System.out.println("\n------ AES GCM Decryption ------");
+        System.out.println(String.format(OUTPUT_FORMAT, "Input (hex)", aesTest1.hex(encryptedText)));
+        System.out.println(String.format(OUTPUT_FORMAT, "Key (hex)", aesTest1.hex(secretKey.getEncoded())));
+
+        String decryptedText = aesTest1.decryptWithPrefixIV(encryptedText, secretKey);
+
+        System.out.println(String.format(OUTPUT_FORMAT, "Decrypted (plain text)", decryptedText));
+
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new startframe().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new startframe().setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
