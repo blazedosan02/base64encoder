@@ -9,6 +9,8 @@ import java.awt.CardLayout;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.crypto.SecretKey;
 import javax.swing.JOptionPane;
 
@@ -292,9 +294,15 @@ public class startframe extends javax.swing.JFrame {
 
                 break;
 
-            case "AES":
+            case "AES": {
+                try {
+                    encodeAES();
+                } catch (Exception ex) {
+                    Logger.getLogger(startframe.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
 
-                break;
+            break;
 
         }
 
@@ -321,6 +329,21 @@ public class startframe extends javax.swing.JFrame {
 
                 secondLabel.setText("Decoded Text");
                 break;
+
+            case "AES":
+
+                aesFieldInput.setText("");
+
+                aesKeyField.setEditable(false);
+
+                aesFieldOutPut.setText("");
+
+                firstLabelAes.setText("Text To Decode");
+
+                secondLabelAes.setText("Decoded Text");
+
+                break;
+
         }
 
         encodeButton.setEnabled(false);
@@ -338,6 +361,19 @@ public class startframe extends javax.swing.JFrame {
             case "BASE64":
                 decodeBase64();
                 break;
+
+            case "AES":
+
+        {
+            try {
+                decodeAES();
+            } catch (Exception ex) {
+                Logger.getLogger(startframe.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+                break;
+
         }
 
     }//GEN-LAST:event_decodeButtonActionPerformed
@@ -413,15 +449,55 @@ public class startframe extends javax.swing.JFrame {
         base64FieldOutput.setText(decodedByteArray);
     }
 
-    public void encodeAES() {
+    public void encodeAES() throws NoSuchAlgorithmException, Exception {
 
         String textToEncode = aesFieldInput.getText();
 
-        String key = aesKeyField.getText();
+        String OUTPUT_FORMAT = "%-30s:%s";
 
-//        Cipher cipher = Cipher.getInstance("AES");
-//        cipher.init(Cipher.ENCRYPT_MODE, key, iv);
-//        byte[] cipherText = cipher.doFinal(textToEncode.getBytes());
+        // String pText = "Hello World AES-GCM, Welcome to Cryptography!";
+        aesTest aesTest1 = new aesTest();
+
+        SecretKey secretKey = aesTest1.getAESKey(AES_KEY_BIT);
+
+        byte[] iv = aesTest1.getRandomNonce(IV_LENGTH_BYTE);
+
+        byte[] encryptedText = aesTest1.encryptWithPrefixIV(textToEncode.getBytes(UTF_8), secretKey, iv);
+
+//        System.out.println("\n------ AES GCM Encryption ------");
+//        System.out.println(String.format(OUTPUT_FORMAT, "Input (plain text)", textToEncode));
+//        System.out.println(String.format(OUTPUT_FORMAT, "Key (hex)", aesTest1.hex(secretKey.getEncoded())));
+//        System.out.println(String.format(OUTPUT_FORMAT, "IV  (hex)", aesTest1.hex(iv)));
+//        System.out.println(String.format(OUTPUT_FORMAT, "Encrypted (hex) ", aesTest1.hex(encryptedText)));
+        aesFieldOutPut.setText(aesTest1.hex(encryptedText));
+
+        aesKeyField.setText(aesTest1.hex(secretKey.getEncoded()));
+
+    }
+
+    public void decodeAES() throws NoSuchAlgorithmException, Exception {
+
+        String textToDecode = aesFieldInput.getText();
+
+        String OUTPUT_FORMAT = "%-30s:%s";
+
+        aesTest aesTest1 = new aesTest();
+
+        SecretKey secretKey = aesTest1.getAESKey(AES_KEY_BIT);
+
+        byte[] iv = aesTest1.getRandomNonce(IV_LENGTH_BYTE);
+
+        byte[] encryptedText = aesTest1.encryptWithPrefixIV(textToDecode.getBytes(UTF_8), secretKey, iv);
+
+        String decryptedText = aesTest1.decryptWithPrefixIV(encryptedText, secretKey);
+
+        aesFieldOutPut.setText(decryptedText);
+
+//        System.out.println("\n------ AES GCM Decryption ------");
+//        System.out.println(String.format(OUTPUT_FORMAT, "Input (hex)", aesTest1.hex(encryptedText)));
+//        System.out.println(String.format(OUTPUT_FORMAT, "Key (hex)", aesTest1.hex(secretKey.getEncoded())));
+//
+//        System.out.println(String.format(OUTPUT_FORMAT, "Decrypted (plain text)", decryptedText));
     }
 
     /**
@@ -467,8 +543,9 @@ public class startframe extends javax.swing.JFrame {
         System.out.println(String.format(OUTPUT_FORMAT, "Input (plain text)", pText));
         System.out.println(String.format(OUTPUT_FORMAT, "Key (hex)", aesTest1.hex(secretKey.getEncoded())));
         System.out.println(String.format(OUTPUT_FORMAT, "IV  (hex)", aesTest1.hex(iv)));
+        System.out.println("KEY NO HEX"+secretKey.toString());
         System.out.println(String.format(OUTPUT_FORMAT, "Encrypted (hex) ", aesTest1.hex(encryptedText)));
-
+        
         System.out.println("\n------ AES GCM Decryption ------");
         System.out.println(String.format(OUTPUT_FORMAT, "Input (hex)", aesTest1.hex(encryptedText)));
         System.out.println(String.format(OUTPUT_FORMAT, "Key (hex)", aesTest1.hex(secretKey.getEncoded())));
@@ -478,11 +555,11 @@ public class startframe extends javax.swing.JFrame {
         System.out.println(String.format(OUTPUT_FORMAT, "Decrypted (plain text)", decryptedText));
 
         /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new startframe().setVisible(true);
-//            }
-//        });
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new startframe().setVisible(true);
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
