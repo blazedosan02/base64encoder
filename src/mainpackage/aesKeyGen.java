@@ -213,6 +213,8 @@ public class aesKeyGen extends javax.swing.JFrame {
         return tempBase64;
 
     }
+   
+   
 
     /**
      * @param args the command line arguments
