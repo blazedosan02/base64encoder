@@ -68,6 +68,8 @@ public class startframe extends javax.swing.JFrame {
         aesMenu = new javax.swing.JMenuItem();
         encodeMenu = new javax.swing.JMenuItem();
         decodeMenu = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -250,6 +252,13 @@ public class startframe extends javax.swing.JFrame {
         optionsMenu.add(decodeMenu);
 
         mainMenuBar.add(optionsMenu);
+
+        jMenu1.setText("Tools ");
+
+        jMenuItem2.setText("AesKeyGen");
+        jMenu1.add(jMenuItem2);
+
+        mainMenuBar.add(jMenu1);
 
         setJMenuBar(mainMenuBar);
 
@@ -609,7 +618,9 @@ public class startframe extends javax.swing.JFrame {
     private javax.swing.JMenu fileMenu;
     private javax.swing.JLabel firstLabel;
     private javax.swing.JLabel firstLabelAes;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JLabel keyLabel;
     private javax.swing.JLayeredPane mainLayeredPane;
     private javax.swing.JMenuBar mainMenuBar;
