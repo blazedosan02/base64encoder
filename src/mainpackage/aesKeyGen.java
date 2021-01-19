@@ -8,12 +8,25 @@ package mainpackage;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Base64;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  *
  * @author XME4374
  */
 public class aesKeyGen extends javax.swing.JFrame {
+
+    private static final String key = "aesEncryptionKey";
+    private static final String initVector = "encryptionIntVec";
 
     /**
      * Creates new form aesKeyGen
@@ -56,6 +69,11 @@ public class aesKeyGen extends javax.swing.JFrame {
 
         generateKeyButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         generateKeyButton.setText("Generate");
+        generateKeyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generateKeyButtonActionPerformed(evt);
+            }
+        });
 
         cleanButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         cleanButton.setText("Clean");
@@ -73,6 +91,11 @@ public class aesKeyGen extends javax.swing.JFrame {
 
         copyIVButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         copyIVButton.setText("Copy");
+        copyIVButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                copyIVButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -133,6 +156,63 @@ public class aesKeyGen extends javax.swing.JFrame {
         Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
         clpbrd.setContents(stringSelection, null);
     }//GEN-LAST:event_copyKeyButtonActionPerformed
+
+    private void copyIVButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyIVButtonActionPerformed
+        // TODO add your handling code here:
+
+        StringSelection stringSelection = new StringSelection(ivField.getText());
+        Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clpbrd.setContents(stringSelection, null);
+    }//GEN-LAST:event_copyIVButtonActionPerformed
+
+    private void generateKeyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateKeyButtonActionPerformed
+
+        keyField.setText(generateKey());
+
+      
+        
+      
+
+    }//GEN-LAST:event_generateKeyButtonActionPerformed
+
+//    public static String encrypt(String value) {
+//        try {
+//            IvParameterSpec iv = new IvParameterSpec(initVector.getBytes("UTF-8"));
+//            SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes("UTF-8"), "AES");
+//
+//            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
+//            cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
+//
+//            byte[] encrypted = cipher.doFinal(value.getBytes());
+//
+//            byte[] base64ByteArray = Base64.getEncoder().encode(encrypted);
+//
+//            String encodedByteArray = new String(base64ByteArray);
+//
+//            return encodedByteArray;
+//
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
+//        return null;
+//    }
+    private String generateKey() {
+
+        KeyGenerator keyGen = null;
+        try {
+            keyGen = KeyGenerator.getInstance("AES");
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(aesKeyGen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        SecureRandom random = new SecureRandom(); // cryptograph. secure random 
+        keyGen.init(random);
+        SecretKey secretKey = keyGen.generateKey();
+
+        String tempBase64 = new String(Base64.getEncoder().encode(secretKey.getEncoded()));
+
+        return tempBase64;
+
+    }
 
     /**
      * @param args the command line arguments
