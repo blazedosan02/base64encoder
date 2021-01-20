@@ -66,13 +66,13 @@ public class startframe extends javax.swing.JFrame {
         fileMenu = new javax.swing.JMenu();
         aboutMenu = new javax.swing.JMenuItem();
         optionsMenu = new javax.swing.JMenu();
-        encodingMethodMenu = new javax.swing.JMenu();
-        base64Menu = new javax.swing.JMenuItem();
-        aesMenu = new javax.swing.JMenuItem();
         encodeMenu = new javax.swing.JMenuItem();
         decodeMenu = new javax.swing.JMenuItem();
+        methodMenu = new javax.swing.JMenu();
+        base64Menu = new javax.swing.JMenuItem();
+        aesMenu = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        aesKeyGenMenu = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -232,26 +232,6 @@ public class startframe extends javax.swing.JFrame {
 
         optionsMenu.setText("Options");
 
-        encodingMethodMenu.setText("Method");
-
-        base64Menu.setText("Base64");
-        base64Menu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                base64MenuActionPerformed(evt);
-            }
-        });
-        encodingMethodMenu.add(base64Menu);
-
-        aesMenu.setText("Aes");
-        aesMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aesMenuActionPerformed(evt);
-            }
-        });
-        encodingMethodMenu.add(aesMenu);
-
-        optionsMenu.add(encodingMethodMenu);
-
         encodeMenu.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         encodeMenu.setText("Encode");
         encodeMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -272,10 +252,35 @@ public class startframe extends javax.swing.JFrame {
 
         mainMenuBar.add(optionsMenu);
 
+        methodMenu.setText("Method");
+
+        base64Menu.setText("Base64");
+        base64Menu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                base64MenuActionPerformed(evt);
+            }
+        });
+        methodMenu.add(base64Menu);
+
+        aesMenu.setText("Aes");
+        aesMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aesMenuActionPerformed(evt);
+            }
+        });
+        methodMenu.add(aesMenu);
+
+        mainMenuBar.add(methodMenu);
+
         jMenu1.setText("Tools ");
 
-        jMenuItem2.setText("AesKeyGen");
-        jMenu1.add(jMenuItem2);
+        aesKeyGenMenu.setText("AesKeyGen");
+        aesKeyGenMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aesKeyGenMenuActionPerformed(evt);
+            }
+        });
+        jMenu1.add(aesKeyGenMenu);
 
         mainMenuBar.add(jMenu1);
 
@@ -449,6 +454,16 @@ public class startframe extends javax.swing.JFrame {
         CardLayout card = (CardLayout) mainLayeredPane.getLayout();
         card.show(mainLayeredPane, "base64Card");
     }//GEN-LAST:event_base64MenuActionPerformed
+
+    private void aesKeyGenMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aesKeyGenMenuActionPerformed
+        // TODO add your handling code here:
+        
+        aesKeyGen aessKeyGen = new aesKeyGen();
+        
+        aessKeyGen.setVisible(true);
+        
+        
+    }//GEN-LAST:event_aesKeyGenMenuActionPerformed
 
     public void encodeBase64() {
 
@@ -654,6 +669,7 @@ public class startframe extends javax.swing.JFrame {
     private javax.swing.JTextField aesFieldOutPut;
     private javax.swing.JTextField aesIVField;
     private javax.swing.JTextField aesKeyField;
+    private javax.swing.JMenuItem aesKeyGenMenu;
     private javax.swing.JMenuItem aesMenu;
     private javax.swing.JPanel aesPanel;
     private javax.swing.JTextField base64FieldInput;
@@ -665,17 +681,16 @@ public class startframe extends javax.swing.JFrame {
     private javax.swing.JMenuItem decodeMenu;
     private javax.swing.JButton encodeButton;
     private javax.swing.JMenuItem encodeMenu;
-    private javax.swing.JMenu encodingMethodMenu;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JLabel firstLabel;
     private javax.swing.JLabel firstLabelAes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JLabel keyLabel;
     private javax.swing.JLayeredPane mainLayeredPane;
     private javax.swing.JMenuBar mainMenuBar;
+    private javax.swing.JMenu methodMenu;
     private javax.swing.JMenu optionsMenu;
     private javax.swing.JLabel secondLabel;
     private javax.swing.JLabel secondLabelAes;

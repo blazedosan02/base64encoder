@@ -54,8 +54,9 @@ public class aesKeyGen extends javax.swing.JFrame {
         copyKeyButton = new javax.swing.JButton();
         copyIVButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("AesKeyGen");
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setText("Key");
@@ -80,6 +81,11 @@ public class aesKeyGen extends javax.swing.JFrame {
 
         exitButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         exitButton.setText("Exit");
+        exitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitButtonActionPerformed(evt);
+            }
+        });
 
         copyKeyButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         copyKeyButton.setText("Copy");
@@ -174,6 +180,18 @@ public class aesKeyGen extends javax.swing.JFrame {
       
 
     }//GEN-LAST:event_generateKeyButtonActionPerformed
+
+    private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
+        // TODO add your handling code here:
+        
+       
+       
+       setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+       
+       
+       
+        
+    }//GEN-LAST:event_exitButtonActionPerformed
 
 //    public static String encrypt(String value) {
 //        try {
