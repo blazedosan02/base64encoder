@@ -489,15 +489,15 @@ public class startframe extends javax.swing.JFrame {
 
         aesTest2 aesTest2 = new aesTest2();
 
+        //Decoding Base 64 Key to Secretkey
         byte[] decodedAesBytes = Base64.getDecoder().decode(textKey);
 
         SecretKey originalKey = new SecretKeySpec(decodedAesBytes, 0, decodedAesBytes.length, "AES");
 
-        aesTest2.encrypt(textKey, originalKey, textIV);
-
+        //Convert byte array to String
         String decodedAesArray = new String(aesTest2.encrypt(textKey, originalKey, textIV));
 
-        //Encode SecretText
+        //Encode SecretText to Base 64
         byte[] base64SecretEncoded = Base64.getEncoder().encode(decodedAesArray.getBytes());
 
         String base64SecretString = new String(base64SecretEncoded);
@@ -536,31 +536,43 @@ public class startframe extends javax.swing.JFrame {
 
         String textToDecode = aesFieldInput.getText();
 
-        String OUTPUT_FORMAT = "%-30s:%s";
+        String textKey = aesKeyField.getText();
 
-        aesTest aesTest1 = new aesTest();
+        String textIV = aesIVField.getText();
 
-        SecretKey secretKey = aesTest1.getAESKey(AES_KEY_BIT);
+        //Decoding Base 64 Key to Secretkey
+        byte[] decodedAesBytes = Base64.getDecoder().decode(textKey);
 
-        byte[] iv = aesTest1.getRandomNonce(IV_LENGTH_BYTE);
+        SecretKey originalKey = new SecretKeySpec(decodedAesBytes, 0, decodedAesBytes.length, "AES");
 
-        byte[] encryptedText = aesTest1.encryptWithPrefixIV(textToDecode.getBytes(UTF_8), secretKey, iv);
+        //Convert byte array to String
+        String decodedAesArray = new String();
 
-        String getKey = aesKeyField.getText();
+        //Encode SecretText to Base 64
+        byte[] base64SecretEncoded = Base64.getEncoder().encode(decodedAesArray.getBytes());
 
+//        String OUTPUT_FORMAT = "%-30s:%s";
+//
+//        aesTest aesTest1 = new aesTest();
+//
+//        SecretKey secretKey = aesTest1.getAESKey(AES_KEY_BIT);
+//
+//        byte[] iv = aesTest1.getRandomNonce(IV_LENGTH_BYTE);
+//
+//        byte[] encryptedText = aesTest1.encryptWithPrefixIV(textToDecode.getBytes(UTF_8), secretKey, iv);
+//
+//        String getKey = aesKeyField.getText();
         //Test
-        System.out.println(getKey);
-
-        byte[] encodedBytes = Base64.getEncoder().encode(getKey.getBytes());
-
-        SecretKey mAesKey = new SecretKeySpec(encodedBytes, "AES");
-
+//        System.out.println(getKey);
+//
+//        byte[] encodedBytes = Base64.getEncoder().encode(getKey.getBytes());
+//
+//        SecretKey mAesKey = new SecretKeySpec(encodedBytes, "AES");
         //SecretKey originalKey = new SecretKeySpec(encodedBytes, 0, encodedBytes.length, "AES");
         //test
-        String decryptedText = aesTest1.decryptWithPrefixIV(encryptedText, mAesKey);
-
-        aesFieldOutPut.setText(decryptedText);
-
+//        String decryptedText = aesTest1.decryptWithPrefixIV(encryptedText, mAesKey);
+//
+//        aesFieldOutPut.setText(decryptedText);
 //        System.out.println("\n------ AES GCM Decryption ------");
 //        System.out.println(String.format(OUTPUT_FORMAT, "Input (hex)", aesTest1.hex(encryptedText)));
 //        System.out.println(String.format(OUTPUT_FORMAT, "Key (hex)", aesTest1.hex(secretKey.getEncoded())));
