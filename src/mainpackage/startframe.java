@@ -164,6 +164,8 @@ public class startframe extends javax.swing.JFrame {
 
         aesKeyField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
+        aesFieldOutPut.setEditable(false);
+
         jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setText("IV");
 
@@ -423,6 +425,10 @@ public class startframe extends javax.swing.JFrame {
 
                 secondLabel.setText("Encoded Text");
                 break;
+
+            case "AES":
+                aesFieldInput.setText("");
+                aesFieldOutPut.setText("");
         }
 
         encodeButton.setEnabled(true);
@@ -434,8 +440,22 @@ public class startframe extends javax.swing.JFrame {
     private void cleanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cleanButtonActionPerformed
         // TODO add your handling code here:
 
-        base64FieldInput.setText("");
-        base64FieldOutput.setText("");
+        switch (menuSelect) {
+
+            case "BASE64":
+                base64FieldInput.setText("");
+                base64FieldOutput.setText("");
+                break;
+
+            case "AES":
+                aesFieldInput.setText("");
+                aesKeyField.setText("");
+                aesIVField.setText("");
+                aesFieldOutPut.setText("");
+                break;
+        }
+
+
     }//GEN-LAST:event_cleanButtonActionPerformed
 
     private void aesMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aesMenuActionPerformed
@@ -457,12 +477,12 @@ public class startframe extends javax.swing.JFrame {
 
     private void aesKeyGenMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aesKeyGenMenuActionPerformed
         // TODO add your handling code here:
-        
+
         aesKeyGen aessKeyGen = new aesKeyGen();
-        
+
         aessKeyGen.setVisible(true);
-        
-        
+
+
     }//GEN-LAST:event_aesKeyGenMenuActionPerformed
 
     public void encodeBase64() {
@@ -492,58 +512,36 @@ public class startframe extends javax.swing.JFrame {
 
     public void encodeAES() throws NoSuchAlgorithmException, Exception {
 
+        aesTest2 aesTest2 = new aesTest2();
+
         String textToEncode = aesFieldInput.getText();
 
         String textKey = aesKeyField.getText();
 
         String textIV = aesIVField.getText();
 
-        String OUTPUT_FORMAT = "%-30s:%s";
+        if (aesKeyField.getText().equals("") || aesIVField.getText().equals("") || aesFieldInput.getText().equals("")) {
 
-        // String pText = "Hello World AES-GCM, Welcome to Cryptography!";
-        aesTest aesTest1 = new aesTest();
+            JOptionPane.showMessageDialog(null, "Text To Encode / KeyField/ IV Field must not be empty");
+        } else if (textIV.length() < 16 || textIV.length() > 16) {
 
-        aesTest2 aesTest2 = new aesTest2();
+            JOptionPane.showMessageDialog(null, "The IV Lengh Must Be 16 Bytes");
 
-        //Decoding Base 64 Key to Secretkey
-        byte[] decodedAesBytes = Base64.getDecoder().decode(textKey);
+            aesIVField.setText("");
 
-        SecretKey originalKey = new SecretKeySpec(decodedAesBytes, 0, decodedAesBytes.length, "AES");
+        } else {
 
-        //Convert byte array to String
-        //  String decodedAesArray = new String(aesTest2.encrypt(textKey, originalKey, textIV));
-        //Encode SecretText to Base 64
-        // byte[] base64SecretEncoded = Base64.getEncoder().encode(decodedAesArray.getBytes());
-        String base64Encrypted = Base64.getEncoder().encodeToString(aesTest2.encrypt(textToEncode, originalKey, textIV));
+            //Decoding Base 64 Key to Secretkey
+            byte[] decodedAesBytes = Base64.getDecoder().decode(textKey);
 
-        aesFieldOutPut.setText(base64Encrypted);
+            SecretKey originalKey = new SecretKeySpec(decodedAesBytes, 0, decodedAesBytes.length, "AES");
 
-        //byte[] encryptedText = aesTest1.encryptWithPrefixIV(textToEncode.getBytes(UTF_8), originalKey, iv); //Encrypted Output
-//        System.out.println("\n------ AES GCM Encryption ------");
-//        System.out.println(String.format(OUTPUT_FORMAT, "Input (plain text)", textToEncode));
-//        System.out.println(String.format(OUTPUT_FORMAT, "Key (hex)", aesTest1.hex(secretKey.getEncoded())));
-//        System.out.println(String.format(OUTPUT_FORMAT, "IV  (hex)", aesTest1.hex(iv)));
-//        System.out.println(String.format(OUTPUT_FORMAT, "Encrypted (hex) ", aesTest1.hex(encryptedText)));
-        //  aesFieldOutPut.setText(aesTest1.hex(encryptedText)); //Encrypted text in hexa
-        //aesKeyField.setText(aesTest1.hex(secretKey.getEncoded())); //Key field in hex
-//        byte[] secretKeyBytes = secretKey.getEncoded();
-//        byte[] encodedSecretKey = Base64.getEncoder().encode(secretKeyBytes);
-//
-//        String secretString = new String(encodedSecretKey);
-//        
-//         byte[] decodedBytes = Base64.getDecoder().decode(secretString);
-//
-//        String decodedByteArray = new String(decodedBytes);
-//
-        // aesKeyField.setText(secretString); //print key in base 64 
-//        
-//        aesKeyField.setText(decodedByteArray); //print key in plain text
-//
-//        byte[] encodedEncryptedBytes = Base64.getEncoder().encode(encryptedText);
-//
-//        String encryptedString = new String(encodedEncryptedBytes);
-//
-//        aesFieldOutPut.setText(encryptedString); //Encrypted text in base64
+            String base64Encrypted = Base64.getEncoder().encodeToString(aesTest2.encrypt(textToEncode, originalKey, textIV));
+
+            aesFieldOutPut.setText(base64Encrypted);
+
+        }
+
     }
 
     public void decodeAES() throws NoSuchAlgorithmException, Exception {
@@ -558,8 +556,8 @@ public class startframe extends javax.swing.JFrame {
 
         //Decoding Base 64 Key to Secretkey
         byte[] decodedAesBytes = Base64.getDecoder().decode(textKey);
-        
-        System.out.println("KEY iS "+decodedAesBytes);
+
+        System.out.println("KEY iS " + decodedAesBytes);
 
         SecretKey originalKey = new SecretKeySpec(Arrays.copyOf(decodedAesBytes, 16), "AES");
 
@@ -568,37 +566,6 @@ public class startframe extends javax.swing.JFrame {
 
         aesFieldOutPut.setText(aesTest2.decrypt(textToDecode, originalKey, textIV));
 
-        //Convert byte array to String
-        // String decodedAesArray = new String();
-        //Encode SecretText to Base 64
-        //  byte[] base64SecretEncoded = Base64.getEncoder().encode(decodedAesArray.getBytes());
-//        String OUTPUT_FORMAT = "%-30s:%s";
-//
-//        aesTest aesTest1 = new aesTest();
-//
-//        SecretKey secretKey = aesTest1.getAESKey(AES_KEY_BIT);
-//
-//        byte[] iv = aesTest1.getRandomNonce(IV_LENGTH_BYTE);
-//
-//        byte[] encryptedText = aesTest1.encryptWithPrefixIV(textToDecode.getBytes(UTF_8), secretKey, iv);
-//
-//        String getKey = aesKeyField.getText();
-        //Test
-//        System.out.println(getKey);
-//
-//        byte[] encodedBytes = Base64.getEncoder().encode(getKey.getBytes());
-//
-//        SecretKey mAesKey = new SecretKeySpec(encodedBytes, "AES");
-        //SecretKey originalKey = new SecretKeySpec(encodedBytes, 0, encodedBytes.length, "AES");
-        //test
-//        String decryptedText = aesTest1.decryptWithPrefixIV(encryptedText, mAesKey);
-//
-//        aesFieldOutPut.setText(decryptedText);
-//        System.out.println("\n------ AES GCM Decryption ------");
-//        System.out.println(String.format(OUTPUT_FORMAT, "Input (hex)", aesTest1.hex(encryptedText)));
-//        System.out.println(String.format(OUTPUT_FORMAT, "Key (hex)", aesTest1.hex(secretKey.getEncoded())));
-//
-//        System.out.println(String.format(OUTPUT_FORMAT, "Decrypted (plain text)", decryptedText));
     }
 
     /**
