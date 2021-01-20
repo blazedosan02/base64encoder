@@ -68,6 +68,11 @@ public class aesKeyGen extends javax.swing.JFrame {
 
         cleanButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         cleanButton.setText("Clean");
+        cleanButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cleanButtonActionPerformed(evt);
+            }
+        });
 
         copyKeyButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         copyKeyButton.setText("Copy");
@@ -97,9 +102,9 @@ public class aesKeyGen extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(cleanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(keyField))))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(copyKeyButton)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,6 +140,12 @@ public class aesKeyGen extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_generateKeyButtonActionPerformed
+
+    private void cleanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cleanButtonActionPerformed
+        // TODO add your handling code here:
+        
+        keyField.setText("");
+    }//GEN-LAST:event_cleanButtonActionPerformed
 
 //    public static String encrypt(String value) {
 //        try {
