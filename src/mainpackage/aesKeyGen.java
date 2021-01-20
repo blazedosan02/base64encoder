@@ -46,13 +46,9 @@ public class aesKeyGen extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         keyField = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        ivField = new javax.swing.JTextField();
         generateKeyButton = new javax.swing.JButton();
         cleanButton = new javax.swing.JButton();
-        exitButton = new javax.swing.JButton();
         copyKeyButton = new javax.swing.JButton();
-        copyIVButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("AesKeyGen");
@@ -62,11 +58,6 @@ public class aesKeyGen extends javax.swing.JFrame {
         jLabel1.setText("Key");
 
         keyField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel2.setText("IV");
-
-        ivField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         generateKeyButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         generateKeyButton.setText("Generate");
@@ -79,14 +70,6 @@ public class aesKeyGen extends javax.swing.JFrame {
         cleanButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         cleanButton.setText("Clean");
 
-        exitButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        exitButton.setText("Exit");
-        exitButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exitButtonActionPerformed(evt);
-            }
-        });
-
         copyKeyButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         copyKeyButton.setText("Copy");
         copyKeyButton.addActionListener(new java.awt.event.ActionListener() {
@@ -95,40 +78,24 @@ public class aesKeyGen extends javax.swing.JFrame {
             }
         });
 
-        copyIVButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        copyIVButton.setText("Copy");
-        copyIVButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                copyIVButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(keyField, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(copyKeyButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(168, 168, 168)
                         .addComponent(generateKeyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(60, 60, 60)
-                        .addComponent(cleanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(61, 61, 61)
-                        .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(keyField, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(ivField))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(copyKeyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(copyIVButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cleanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -141,15 +108,9 @@ public class aesKeyGen extends javax.swing.JFrame {
                     .addComponent(copyKeyButton))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(ivField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(copyIVButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(generateKeyButton)
-                    .addComponent(cleanButton)
-                    .addComponent(exitButton))
-                .addGap(21, 21, 21))
+                    .addComponent(cleanButton))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -163,14 +124,6 @@ public class aesKeyGen extends javax.swing.JFrame {
         clpbrd.setContents(stringSelection, null);
     }//GEN-LAST:event_copyKeyButtonActionPerformed
 
-    private void copyIVButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyIVButtonActionPerformed
-        // TODO add your handling code here:
-
-        StringSelection stringSelection = new StringSelection(ivField.getText());
-        Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
-        clpbrd.setContents(stringSelection, null);
-    }//GEN-LAST:event_copyIVButtonActionPerformed
-
     private void generateKeyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateKeyButtonActionPerformed
 
         keyField.setText(generateKey());
@@ -180,18 +133,6 @@ public class aesKeyGen extends javax.swing.JFrame {
       
 
     }//GEN-LAST:event_generateKeyButtonActionPerformed
-
-    private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
-        // TODO add your handling code here:
-        
-       
-       
-       setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-       
-       
-       
-        
-    }//GEN-LAST:event_exitButtonActionPerformed
 
 //    public static String encrypt(String value) {
 //        try {
@@ -272,13 +213,9 @@ public class aesKeyGen extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cleanButton;
-    private javax.swing.JButton copyIVButton;
     private javax.swing.JButton copyKeyButton;
-    private javax.swing.JButton exitButton;
     private javax.swing.JButton generateKeyButton;
-    private javax.swing.JTextField ivField;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField keyField;
     // End of variables declaration//GEN-END:variables
 }
