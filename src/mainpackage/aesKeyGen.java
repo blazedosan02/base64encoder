@@ -209,6 +209,7 @@ public class aesKeyGen extends javax.swing.JFrame {
         SecretKey secretKey = keyGen.generateKey();
 
         String tempBase64 = new String(Base64.getEncoder().encode(secretKey.getEncoded()));
+       
 
         return tempBase64;
 

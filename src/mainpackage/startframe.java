@@ -8,6 +8,7 @@ package mainpackage;
 import java.awt.CardLayout;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -495,14 +496,12 @@ public class startframe extends javax.swing.JFrame {
         SecretKey originalKey = new SecretKeySpec(decodedAesBytes, 0, decodedAesBytes.length, "AES");
 
         //Convert byte array to String
-        String decodedAesArray = new String(aesTest2.encrypt(textKey, originalKey, textIV));
-
+        //  String decodedAesArray = new String(aesTest2.encrypt(textKey, originalKey, textIV));
         //Encode SecretText to Base 64
-        byte[] base64SecretEncoded = Base64.getEncoder().encode(decodedAesArray.getBytes());
+        // byte[] base64SecretEncoded = Base64.getEncoder().encode(decodedAesArray.getBytes());
+        String base64Encrypted = Base64.getEncoder().encodeToString(aesTest2.encrypt(textKey, originalKey, textIV));
 
-        String base64SecretString = new String(base64SecretEncoded);
-
-        aesFieldOutPut.setText(base64SecretString);
+        aesFieldOutPut.setText(base64Encrypted);
 
         //byte[] encryptedText = aesTest1.encryptWithPrefixIV(textToEncode.getBytes(UTF_8), originalKey, iv); //Encrypted Output
 //        System.out.println("\n------ AES GCM Encryption ------");
@@ -534,6 +533,8 @@ public class startframe extends javax.swing.JFrame {
 
     public void decodeAES() throws NoSuchAlgorithmException, Exception {
 
+        aesTest2 aesTest2 = new aesTest2();
+
         String textToDecode = aesFieldInput.getText();
 
         String textKey = aesKeyField.getText();
@@ -542,15 +543,20 @@ public class startframe extends javax.swing.JFrame {
 
         //Decoding Base 64 Key to Secretkey
         byte[] decodedAesBytes = Base64.getDecoder().decode(textKey);
+        
+        System.out.println("KEY iS "+decodedAesBytes);
 
-        SecretKey originalKey = new SecretKeySpec(decodedAesBytes, 0, decodedAesBytes.length, "AES");
+        SecretKey originalKey = new SecretKeySpec(Arrays.copyOf(decodedAesBytes, 16), "AES");
+
+        //SecretKey originalKey = new SecretKeySpec(decodedAesBytes, 0, decodedAesBytes.length, "AES");
+        System.out.println("DECRIPTADO ES:" + aesTest2.decrypt(textToDecode, originalKey, textIV));
+
+        aesFieldOutPut.setText(aesTest2.decrypt(textToDecode, originalKey, textIV));
 
         //Convert byte array to String
-        String decodedAesArray = new String();
-
+        // String decodedAesArray = new String();
         //Encode SecretText to Base 64
-        byte[] base64SecretEncoded = Base64.getEncoder().encode(decodedAesArray.getBytes());
-
+        //  byte[] base64SecretEncoded = Base64.getEncoder().encode(decodedAesArray.getBytes());
 //        String OUTPUT_FORMAT = "%-30s:%s";
 //
 //        aesTest aesTest1 = new aesTest();
