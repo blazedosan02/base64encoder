@@ -499,7 +499,7 @@ public class startframe extends javax.swing.JFrame {
         //  String decodedAesArray = new String(aesTest2.encrypt(textKey, originalKey, textIV));
         //Encode SecretText to Base 64
         // byte[] base64SecretEncoded = Base64.getEncoder().encode(decodedAesArray.getBytes());
-        String base64Encrypted = Base64.getEncoder().encodeToString(aesTest2.encrypt(textKey, originalKey, textIV));
+        String base64Encrypted = Base64.getEncoder().encodeToString(aesTest2.encrypt(textToEncode, originalKey, textIV));
 
         aesFieldOutPut.setText(base64Encrypted);
 
