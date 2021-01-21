@@ -443,7 +443,17 @@ public class startframe extends javax.swing.JFrame {
         switch (menuSelect) {
 
             case "BASE64":
-                decodeBase64();
+
+                if (base64FieldInput.getText().equals("")) {
+
+                    JOptionPane.showMessageDialog(null, "Field To decode mut not be empty");
+
+                } else {
+
+                    decodeBase64();
+
+                }
+
                 break;
 
             case "AES": {
@@ -549,7 +559,7 @@ public class startframe extends javax.swing.JFrame {
 
     private void copyEncodedAesTextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyEncodedAesTextButtonActionPerformed
         // TODO add your handling code here:
-        
+
         copySelection(aesFieldOutPut);
     }//GEN-LAST:event_copyEncodedAesTextButtonActionPerformed
 
