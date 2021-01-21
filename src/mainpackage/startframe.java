@@ -351,31 +351,30 @@ public class startframe extends javax.swing.JFrame {
     private void encodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encodeButtonActionPerformed
         // TODO add your handling code here:
 
-        if (base64FieldInput.getText().equals("")) {
+        switch (menuSelect) {
 
-            JOptionPane.showMessageDialog(null, "Input must not be empty");
+            case "BASE64":
 
-        } else {
+                if (base64FieldInput.getText().equals("")) {
 
-            switch (menuSelect) {
+                    JOptionPane.showMessageDialog(null, "Input must not be empty");
 
-                case "BASE64":
+                } else {
 
                     encodeBase64();
-
-                    break;
-
-                case "AES": {
-                    try {
-                        encodeAES();
-                    } catch (Exception ex) {
-                        Logger.getLogger(startframe.class.getName()).log(Level.SEVERE, null, ex);
-                    }
                 }
 
                 break;
 
+            case "AES": {
+                try {
+                    encodeAES();
+                } catch (Exception ex) {
+                    Logger.getLogger(startframe.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+
+            break;
 
         }
 
@@ -532,7 +531,7 @@ public class startframe extends javax.swing.JFrame {
 
     private void copyOutputTextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyOutputTextButtonActionPerformed
         // TODO add your handling code here:
-        
+
         copySelection(base64FieldOutput);
     }//GEN-LAST:event_copyOutputTextButtonActionPerformed
 
