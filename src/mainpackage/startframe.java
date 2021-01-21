@@ -349,6 +349,7 @@ public class startframe extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         JOptionPane.showMessageDialog(null, "Marco Lecona 2021");
+
     }//GEN-LAST:event_aboutMenuActionPerformed
 
     private void decodeMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decodeMenuActionPerformed

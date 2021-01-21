@@ -132,42 +132,21 @@ public class aesKeyGen extends javax.swing.JFrame {
         StringSelection stringSelection = new StringSelection(keyField.getText());
         Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
         clpbrd.setContents(stringSelection, null);
+
     }//GEN-LAST:event_copyKeyButtonActionPerformed
 
     private void generateKeyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateKeyButtonActionPerformed
 
         keyField.setText(generateKey());
 
-
     }//GEN-LAST:event_generateKeyButtonActionPerformed
 
     private void cleanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cleanButtonActionPerformed
         // TODO add your handling code here:
-        
+
         keyField.setText("");
     }//GEN-LAST:event_cleanButtonActionPerformed
 
-//    public static String encrypt(String value) {
-//        try {
-//            IvParameterSpec iv = new IvParameterSpec(initVector.getBytes("UTF-8"));
-//            SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes("UTF-8"), "AES");
-//
-//            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
-//            cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
-//
-//            byte[] encrypted = cipher.doFinal(value.getBytes());
-//
-//            byte[] base64ByteArray = Base64.getEncoder().encode(encrypted);
-//
-//            String encodedByteArray = new String(base64ByteArray);
-//
-//            return encodedByteArray;
-//
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
-//        return null;
-//    }
     private String generateKey() {
 
         KeyGenerator keyGen = null;
