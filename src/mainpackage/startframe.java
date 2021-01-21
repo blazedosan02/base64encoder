@@ -6,6 +6,9 @@
 package mainpackage;
 
 import java.awt.CardLayout;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -15,6 +18,7 @@ import java.util.logging.Logger;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -53,6 +57,8 @@ public class startframe extends javax.swing.JFrame {
         base64FieldInput = new javax.swing.JTextField();
         base64FieldOutput = new javax.swing.JTextField();
         secondLabel = new javax.swing.JLabel();
+        copyInputTextButton = new javax.swing.JButton();
+        copyOutputTextButton = new javax.swing.JButton();
         aesPanel = new javax.swing.JPanel();
         firstLabelAes = new javax.swing.JLabel();
         secondLabelAes = new javax.swing.JLabel();
@@ -115,10 +121,27 @@ public class startframe extends javax.swing.JFrame {
 
         base64FieldInput.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
+        base64FieldOutput.setEditable(false);
         base64FieldOutput.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         secondLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         secondLabel.setText("Encoded Text ");
+
+        copyInputTextButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        copyInputTextButton.setText("Copy");
+        copyInputTextButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                copyInputTextButtonActionPerformed(evt);
+            }
+        });
+
+        copyOutputTextButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        copyOutputTextButton.setText("Copy");
+        copyOutputTextButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                copyOutputTextButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout base64PanelLayout = new javax.swing.GroupLayout(base64Panel);
         base64Panel.setLayout(base64PanelLayout);
@@ -133,19 +156,25 @@ public class startframe extends javax.swing.JFrame {
                 .addGroup(base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(base64FieldInput)
                     .addComponent(base64FieldOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(copyInputTextButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(copyOutputTextButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         base64PanelLayout.setVerticalGroup(
             base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(base64PanelLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(21, 21, 21)
                 .addGroup(base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(firstLabel)
-                    .addComponent(base64FieldInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                    .addComponent(base64FieldInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(copyInputTextButton))
+                .addGap(29, 29, 29)
                 .addGroup(base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(secondLabel)
-                    .addComponent(base64FieldOutput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(base64FieldOutput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(copyOutputTextButton))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
 
@@ -322,23 +351,31 @@ public class startframe extends javax.swing.JFrame {
     private void encodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encodeButtonActionPerformed
         // TODO add your handling code here:
 
-        switch (menuSelect) {
+        if (base64FieldInput.getText().equals("")) {
 
-            case "BASE64":
+            JOptionPane.showMessageDialog(null, "Input must not be empty");
 
-                encodeBase64();
+        } else {
+
+            switch (menuSelect) {
+
+                case "BASE64":
+
+                    encodeBase64();
+
+                    break;
+
+                case "AES": {
+                    try {
+                        encodeAES();
+                    } catch (Exception ex) {
+                        Logger.getLogger(startframe.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
 
                 break;
 
-            case "AES": {
-                try {
-                    encodeAES();
-                } catch (Exception ex) {
-                    Logger.getLogger(startframe.class.getName()).log(Level.SEVERE, null, ex);
-                }
             }
-
-            break;
 
         }
 
@@ -486,11 +523,22 @@ public class startframe extends javax.swing.JFrame {
 
     }//GEN-LAST:event_aesKeyGenMenuActionPerformed
 
+    private void copyInputTextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyInputTextButtonActionPerformed
+        // TODO add your handling code here:
+
+        copySelection(base64FieldInput);
+
+    }//GEN-LAST:event_copyInputTextButtonActionPerformed
+
+    private void copyOutputTextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyOutputTextButtonActionPerformed
+        // TODO add your handling code here:
+        
+        copySelection(base64FieldOutput);
+    }//GEN-LAST:event_copyOutputTextButtonActionPerformed
+
     public void encodeBase64() {
 
         String textToEncode = base64FieldInput.getText();
-
-        System.out.println(textToEncode);
 
         byte[] encodedBytes = Base64.getEncoder().encode(textToEncode.getBytes());
 
@@ -558,14 +606,25 @@ public class startframe extends javax.swing.JFrame {
         //Decoding Base 64 Key to Secretkey
         byte[] decodedAesBytes = Base64.getDecoder().decode(textKey);
 
-        System.out.println("KEY iS " + decodedAesBytes);
-
         SecretKey originalKey = new SecretKeySpec(Arrays.copyOf(decodedAesBytes, 16), "AES");
 
-        //SecretKey originalKey = new SecretKeySpec(decodedAesBytes, 0, decodedAesBytes.length, "AES");
-        System.out.println("DECRIPTADO ES:" + aesTest2.decrypt(textToDecode, originalKey, textIV));
-
         aesFieldOutPut.setText(aesTest2.decrypt(textToDecode, originalKey, textIV));
+
+    }
+
+    public void copySelection(JTextField fieldname) {
+
+        if (fieldname.getText().equals("")) {
+
+            JOptionPane.showMessageDialog(null, "Field to copy is empty");
+
+        } else {
+
+            StringSelection stringSelection = new StringSelection(fieldname.getText());
+            Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clpbrd.setContents(stringSelection, null);
+
+        }
 
     }
 
@@ -596,33 +655,6 @@ public class startframe extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        String OUTPUT_FORMAT = "%-30s:%s";
-
-        String pText = "Hello World AES-GCM, Welcome to Cryptography!";
-
-        aesTest aesTest1 = new aesTest();
-
-        SecretKey secretKey = aesTest1.getAESKey(AES_KEY_BIT);
-
-        byte[] iv = aesTest1.getRandomNonce(IV_LENGTH_BYTE);
-
-        byte[] encryptedText = aesTest1.encryptWithPrefixIV(pText.getBytes(UTF_8), secretKey, iv);
-
-        System.out.println("\n------ AES GCM Encryption ------");
-        System.out.println(String.format(OUTPUT_FORMAT, "Input (plain text)", pText));
-        System.out.println(String.format(OUTPUT_FORMAT, "Key (hex)", aesTest1.hex(secretKey.getEncoded())));
-        System.out.println(String.format(OUTPUT_FORMAT, "IV  (hex)", aesTest1.hex(iv)));
-        System.out.println("KEY NO HEX" + secretKey.toString());
-        System.out.println(String.format(OUTPUT_FORMAT, "Encrypted (hex) ", aesTest1.hex(encryptedText)));
-
-        System.out.println("\n------ AES GCM Decryption ------");
-        System.out.println(String.format(OUTPUT_FORMAT, "Input (hex)", aesTest1.hex(encryptedText)));
-        System.out.println(String.format(OUTPUT_FORMAT, "Key (hex)", aesTest1.hex(secretKey.getEncoded())));
-
-        String decryptedText = aesTest1.decryptWithPrefixIV(encryptedText, secretKey);
-
-        System.out.println(String.format(OUTPUT_FORMAT, "Decrypted (plain text)", decryptedText));
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -645,6 +677,8 @@ public class startframe extends javax.swing.JFrame {
     private javax.swing.JMenuItem base64Menu;
     private javax.swing.JPanel base64Panel;
     private javax.swing.JButton cleanButton;
+    private javax.swing.JButton copyInputTextButton;
+    private javax.swing.JButton copyOutputTextButton;
     private javax.swing.JButton decodeButton;
     private javax.swing.JMenuItem decodeMenu;
     private javax.swing.JButton encodeButton;
