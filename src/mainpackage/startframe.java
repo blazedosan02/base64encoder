@@ -339,9 +339,9 @@ public class startframe extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(encodeButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(79, 79, 79)
                 .addComponent(decodeButton)
-                .addGap(81, 81, 81)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(cleanButton)
                 .addGap(20, 20, 20))
         );
@@ -457,11 +457,21 @@ public class startframe extends javax.swing.JFrame {
                 break;
 
             case "AES": {
-                try {
-                    decodeAES();
-                } catch (Exception ex) {
-                    Logger.getLogger(startframe.class.getName()).log(Level.SEVERE, null, ex);
+
+                if (aesFieldInput.getText().equals("") || aesKeyField.getText().equals("") || aesIVField.getText().equals("")) {
+
+                    JOptionPane.showMessageDialog(null, "Text To Encode / KeyField/ IV Field must not be empty");
+
+                } else {
+
+                    try {
+                        decodeAES();
+                    } catch (Exception ex) {
+                        Logger.getLogger(startframe.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
                 }
+
             }
 
             break;
