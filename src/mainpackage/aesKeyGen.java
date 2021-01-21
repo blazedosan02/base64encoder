@@ -129,9 +129,9 @@ public class aesKeyGen extends javax.swing.JFrame {
     private void copyKeyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyKeyButtonActionPerformed
         // TODO add your handling code here:
 
-        StringSelection stringSelection = new StringSelection(keyField.getText());
-        Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
-        clpbrd.setContents(stringSelection, null);
+        startframe startframe = new startframe();
+
+        startframe.copySelection(keyField);
 
     }//GEN-LAST:event_copyKeyButtonActionPerformed
 
