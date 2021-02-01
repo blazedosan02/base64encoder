@@ -1,11 +1,12 @@
 package mainpackage;
 
 import java.util.Base64;
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 
-public class aesTest2 {
+public class Encryption {
 
     public byte[] encrypt(String text, SecretKey key, String stringiv) throws Exception {
 
@@ -21,7 +22,7 @@ public class aesTest2 {
 
     }
 
-    public String decrypt(String encodedMessage, SecretKey key, String stringiv) throws Exception {
+    public String decrypt(String encodedMessage, SecretKey key, String stringiv) throws Exception,BadPaddingException {
 
         IvParameterSpec iv = new IvParameterSpec(stringiv.getBytes("UTF-8"));
 
@@ -29,11 +30,8 @@ public class aesTest2 {
 
         cipher.init(Cipher.DECRYPT_MODE, key, iv);
 
-        //byte[] original = cipher.doFinal(Base64.getDecoder().decode(encodedMessage));
-        //byte[] original = Base64.getDecoder().decode(encodedMessage);
         byte[] decryptedMessage = cipher.doFinal(Base64.getDecoder().decode(encodedMessage));
 
-        //System.out.println("DECRYPTADO ES:"+decryptedMessage);
         return new String(decryptedMessage);
 
     }
