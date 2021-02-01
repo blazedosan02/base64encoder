@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.crypto.BadPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import javax.swing.JOptionPane;
@@ -396,7 +397,7 @@ public class startframe extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            
+
             JOptionPane.showMessageDialog(null, "Error While Encoding,Try Again");
 
         }
@@ -449,51 +450,41 @@ public class startframe extends javax.swing.JFrame {
     }//GEN-LAST:event_decodeMenuActionPerformed
 
     private void decodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decodeButtonActionPerformed
-        // TODO add your handling code here:
+        switch (menuSelect) {
 
-        try {
+            case "BASE64":
 
-            switch (menuSelect) {
+                if (base64FieldInput.getText().equals("")) {
 
-                case "BASE64":
+                    JOptionPane.showMessageDialog(null, "Field To decode mut not be empty");
 
-                    if (base64FieldInput.getText().equals("")) {
+                } else {
 
-                        JOptionPane.showMessageDialog(null, "Field To decode mut not be empty");
-
-                    } else {
-
-                        decodeBase64();
-
-                    }
-
-                    break;
-
-                case "AES": {
-
-                    if (aesFieldInput.getText().equals("") || aesKeyField.getText().equals("") || aesIVField.getText().equals("")) {
-
-                        JOptionPane.showMessageDialog(null, "Text To Encode / KeyField/ IV Field must not be empty");
-
-                    } else {
-
-                        try {
-                            decodeAES();
-                        } catch (Exception ex) {
-                            Logger.getLogger(startframe.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-
-                    }
+                    decodeBase64();
 
                 }
 
                 break;
 
+            case "AES": {
+
+                if (aesFieldInput.getText().equals("") || aesKeyField.getText().equals("") || aesIVField.getText().equals("")) {
+
+                    JOptionPane.showMessageDialog(null, "Text To Encode / KeyField/ IV Field must not be empty");
+
+                } else {
+
+                    try {
+                        decodeAES();
+                    } catch (Exception ex) {
+                        Logger.getLogger(startframe.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }
+
             }
 
-        } catch (Exception e) {
-
-            JOptionPane.showMessageDialog(null, "Error While Decoding,Try Again");
+            break;
 
         }
 
@@ -656,7 +647,7 @@ public class startframe extends javax.swing.JFrame {
 
     }
 
-    public void decodeAES() throws NoSuchAlgorithmException, Exception {
+    public void decodeAES() throws NoSuchAlgorithmException, Exception, BadPaddingException {
 
         Encryption aesTest2 = new Encryption();
 

@@ -1,6 +1,7 @@
 package mainpackage;
 
 import java.util.Base64;
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
@@ -21,7 +22,7 @@ public class Encryption {
 
     }
 
-    public String decrypt(String encodedMessage, SecretKey key, String stringiv) throws Exception {
+    public String decrypt(String encodedMessage, SecretKey key, String stringiv) throws Exception,BadPaddingException {
 
         IvParameterSpec iv = new IvParameterSpec(stringiv.getBytes("UTF-8"));
 
