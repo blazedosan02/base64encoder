@@ -498,6 +498,7 @@ public class startframe extends javax.swing.JFrame {
             case "AES":
                 aesFieldInput.setText("");
                 aesFieldOutPut.setText("");
+                firstLabelAes.setText("Text To Encode");
         }
 
         encodeButton.setEnabled(true);
