@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,7 +21,7 @@ public class keyGen {
         try {
             keyGen = KeyGenerator.getInstance("AES");
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(aesKeyGen.class.getName()).log(Level.SEVERE, null, ex);
+           JOptionPane.showMessageDialog(null, "Error Generating Key");
         }
         SecureRandom random = new SecureRandom(); // cryptograph. secure random 
         keyGen.init(random);
