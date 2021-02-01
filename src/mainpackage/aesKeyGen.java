@@ -22,8 +22,6 @@ import javax.crypto.SecretKey;
  */
 public class aesKeyGen extends javax.swing.JFrame {
 
-    private static final String key = "aesEncryptionKey";
-    private static final String initVector = "encryptionIntVec";
 
     /**
      * Creates new form aesKeyGen
@@ -159,9 +157,7 @@ public class aesKeyGen extends javax.swing.JFrame {
         keyGen.init(random);
         SecretKey secretKey = keyGen.generateKey();
 
-        String tempBase64 = new String(Base64.getEncoder().encode(secretKey.getEncoded()));
-
-        return tempBase64;
+        return new String(Base64.getEncoder().encode(secretKey.getEncoded()));
 
     }
 

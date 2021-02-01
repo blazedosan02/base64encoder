@@ -9,7 +9,6 @@ import java.awt.CardLayout;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-import static java.nio.charset.StandardCharsets.UTF_8;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Base64;
@@ -238,7 +237,7 @@ public class startframe extends javax.swing.JFrame {
         aesPanelLayout.setVerticalGroup(
             aesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(aesPanelLayout.createSequentialGroup()
-                .addContainerGap(17, Short.MAX_VALUE)
+                .addContainerGap(14, Short.MAX_VALUE)
                 .addGroup(aesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(firstLabelAes)
                     .addComponent(aesFieldInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -599,7 +598,7 @@ public class startframe extends javax.swing.JFrame {
 
     public void encodeAES() throws NoSuchAlgorithmException, Exception {
 
-        aesTest2 aesTest2 = new aesTest2();
+        Encryption aesTest2 = new Encryption();
 
         String textToEncode = aesFieldInput.getText();
 
@@ -633,7 +632,7 @@ public class startframe extends javax.swing.JFrame {
 
     public void decodeAES() throws NoSuchAlgorithmException, Exception {
 
-        aesTest2 aesTest2 = new aesTest2();
+        Encryption aesTest2 = new Encryption();
 
         String textToDecode = aesFieldInput.getText();
 
