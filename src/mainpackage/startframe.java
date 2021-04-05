@@ -52,13 +52,6 @@ public class startframe extends javax.swing.JFrame {
         decodeButton = new javax.swing.JButton();
         cleanButton = new javax.swing.JButton();
         mainLayeredPane = new javax.swing.JLayeredPane();
-        base64Panel = new javax.swing.JPanel();
-        firstLabel = new javax.swing.JLabel();
-        base64FieldInput = new javax.swing.JTextField();
-        base64FieldOutput = new javax.swing.JTextField();
-        secondLabel = new javax.swing.JLabel();
-        copyInputTextButton = new javax.swing.JButton();
-        copyOutputTextButton = new javax.swing.JButton();
         aesPanel = new javax.swing.JPanel();
         firstLabelAes = new javax.swing.JLabel();
         secondLabelAes = new javax.swing.JLabel();
@@ -70,6 +63,13 @@ public class startframe extends javax.swing.JFrame {
         copyEncodedAesTextButton = new javax.swing.JButton();
         copyKeyButton = new javax.swing.JButton();
         newKeyButton = new javax.swing.JButton();
+        base64Panel = new javax.swing.JPanel();
+        firstLabel = new javax.swing.JLabel();
+        base64FieldInput = new javax.swing.JTextField();
+        base64FieldOutput = new javax.swing.JTextField();
+        secondLabel = new javax.swing.JLabel();
+        copyInputTextButton = new javax.swing.JButton();
+        copyOutputTextButton = new javax.swing.JButton();
         mainMenuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         aboutMenu = new javax.swing.JMenuItem();
@@ -112,73 +112,6 @@ public class startframe extends javax.swing.JFrame {
         });
 
         mainLayeredPane.setLayout(new java.awt.CardLayout());
-
-        base64Panel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        base64Panel.setOpaque(false);
-
-        firstLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        firstLabel.setText("Text To Encode");
-
-        base64FieldInput.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-
-        base64FieldOutput.setEditable(false);
-        base64FieldOutput.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-
-        secondLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        secondLabel.setText("Encoded Text ");
-
-        copyInputTextButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        copyInputTextButton.setText("Copy");
-        copyInputTextButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                copyInputTextButtonActionPerformed(evt);
-            }
-        });
-
-        copyOutputTextButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        copyOutputTextButton.setText("Copy");
-        copyOutputTextButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                copyOutputTextButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout base64PanelLayout = new javax.swing.GroupLayout(base64Panel);
-        base64Panel.setLayout(base64PanelLayout);
-        base64PanelLayout.setHorizontalGroup(
-            base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(base64PanelLayout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addGroup(base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(secondLabel)
-                    .addComponent(firstLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(base64FieldInput)
-                    .addComponent(base64FieldOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(copyOutputTextButton, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
-                    .addComponent(copyInputTextButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        base64PanelLayout.setVerticalGroup(
-            base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(base64PanelLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(firstLabel)
-                    .addComponent(base64FieldInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(copyInputTextButton))
-                .addGap(29, 29, 29)
-                .addGroup(base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(secondLabel)
-                    .addComponent(base64FieldOutput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(copyOutputTextButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        mainLayeredPane.add(base64Panel, "base64Card");
 
         firstLabelAes.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         firstLabelAes.setText("Text To Encode");
@@ -275,6 +208,73 @@ public class startframe extends javax.swing.JFrame {
         );
 
         mainLayeredPane.add(aesPanel, "aesCard");
+
+        base64Panel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        base64Panel.setOpaque(false);
+
+        firstLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        firstLabel.setText("Text To Encode");
+
+        base64FieldInput.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        base64FieldOutput.setEditable(false);
+        base64FieldOutput.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        secondLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        secondLabel.setText("Encoded Text ");
+
+        copyInputTextButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        copyInputTextButton.setText("Copy");
+        copyInputTextButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                copyInputTextButtonActionPerformed(evt);
+            }
+        });
+
+        copyOutputTextButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        copyOutputTextButton.setText("Copy");
+        copyOutputTextButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                copyOutputTextButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout base64PanelLayout = new javax.swing.GroupLayout(base64Panel);
+        base64Panel.setLayout(base64PanelLayout);
+        base64PanelLayout.setHorizontalGroup(
+            base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(base64PanelLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addGroup(base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(secondLabel)
+                    .addComponent(firstLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(base64FieldInput)
+                    .addComponent(base64FieldOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(copyOutputTextButton, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                    .addComponent(copyInputTextButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        base64PanelLayout.setVerticalGroup(
+            base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(base64PanelLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(firstLabel)
+                    .addComponent(base64FieldInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(copyInputTextButton))
+                .addGap(29, 29, 29)
+                .addGroup(base64PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(secondLabel)
+                    .addComponent(base64FieldOutput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(copyOutputTextButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        mainLayeredPane.add(base64Panel, "base64Card");
 
         fileMenu.setText("File");
 
