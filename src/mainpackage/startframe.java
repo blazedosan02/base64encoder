@@ -9,6 +9,7 @@ import java.awt.CardLayout;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Base64;
@@ -17,6 +18,7 @@ import java.util.logging.Logger;
 import javax.crypto.BadPaddingException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -27,7 +29,7 @@ import javax.swing.JTextField;
  */
 public class startframe extends javax.swing.JFrame {
 
-    String menuSelect = "BASE64";
+    String menuSelect = "AES";
 
     private static final int IV_LENGTH_BYTE = 12;
     private static final int AES_KEY_BIT = 128;
@@ -388,8 +390,11 @@ public class startframe extends javax.swing.JFrame {
                 case "AES": {
                     try {
                         encodeAES();
-                    } catch (Exception ex) {
-                        Logger.getLogger(startframe.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (InvalidAlgorithmParameterException invex) {
+
+                        JOptionPane.showMessageDialog(null, "Empty IV/Incorrect IV Must Be In Base 64 Format");
+                    } catch (IllegalArgumentException ille) {
+                        JOptionPane.showMessageDialog(null, "Insert a 16 byte length IV");
                     }
                 }
 
@@ -477,6 +482,11 @@ public class startframe extends javax.swing.JFrame {
 
                     try {
                         decodeAES();
+                    } catch (InvalidAlgorithmParameterException invex) {
+
+                        JOptionPane.showMessageDialog(null, "Empty IV/Incorrect IV Must Be In Base 64 Format");
+                    } catch (IllegalArgumentException ille) {
+                        JOptionPane.showMessageDialog(null, "Insert a 16 byte length IV");
                     } catch (Exception ex) {
                         Logger.getLogger(startframe.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -629,7 +639,7 @@ public class startframe extends javax.swing.JFrame {
         base64FieldOutput.setText(decodedByteArray);
     }
 
-    public void encodeAES() throws NoSuchAlgorithmException, Exception {
+    public void encodeAES() throws NoSuchAlgorithmException, Exception, InvalidAlgorithmParameterException, IllegalArgumentException {
 
         Encryption aesTest2 = new Encryption();
 
@@ -639,14 +649,17 @@ public class startframe extends javax.swing.JFrame {
 
         String textIV = aesIVField.getText();
 
-        if (aesKeyField.getText().equals("") || aesIVField.getText().equals("") || aesFieldInput.getText().equals("")) {
+        byte[] decodedIV = Base64.getDecoder().decode(textIV);
+        IvParameterSpec retrieved_iv = new IvParameterSpec(decodedIV);
 
-            JOptionPane.showMessageDialog(null, "Text To Encode / KeyField/ IV Field must not be empty");
-        } else if (textIV.length() < 16 || textIV.length() > 16) {
+        if (aesKeyField.getText().equals("") || aesFieldInput.getText().equals("")) {
 
-            JOptionPane.showMessageDialog(null, "The IV Lengh Must Be 16 Bytes");
-
-            aesIVField.setText("");
+            JOptionPane.showMessageDialog(null, "Text To Encode / KeyField Field must not be empty");
+//        } else if (textIV.length() < 16 || textIV.length() > 16) { //Check if iv is 16 in length
+//
+//            JOptionPane.showMessageDialog(null, "The IV Lengh Must Be 16 Bytes");
+//
+//            aesIVField.setText("");
 
         } else {
 
@@ -655,7 +668,7 @@ public class startframe extends javax.swing.JFrame {
 
             SecretKey originalKey = new SecretKeySpec(decodedAesBytes, 0, decodedAesBytes.length, "AES");
 
-            String base64Encrypted = Base64.getEncoder().encodeToString(aesTest2.encrypt(textToEncode, originalKey, textIV));
+            String base64Encrypted = Base64.getEncoder().encodeToString(aesTest2.encrypt(textToEncode, originalKey, retrieved_iv));
 
             aesFieldOutPut.setText(base64Encrypted);
 
@@ -663,7 +676,7 @@ public class startframe extends javax.swing.JFrame {
 
     }
 
-    public void decodeAES() throws NoSuchAlgorithmException, Exception, BadPaddingException {
+    public void decodeAES() throws NoSuchAlgorithmException, Exception, BadPaddingException, IllegalArgumentException {
 
         Encryption aesTest2 = new Encryption();
 
@@ -673,12 +686,22 @@ public class startframe extends javax.swing.JFrame {
 
         String textIV = aesIVField.getText();
 
+        byte[] decodedIV = Base64.getDecoder().decode(textIV);
+        IvParameterSpec retrieved_iv = new IvParameterSpec(decodedIV);
+
         //Decoding Base 64 Key to Secretkey
         byte[] decodedAesBytes = Base64.getDecoder().decode(textKey);
 
         SecretKey originalKey = new SecretKeySpec(Arrays.copyOf(decodedAesBytes, 16), "AES");
 
-        aesFieldOutPut.setText(aesTest2.decrypt(textToDecode, originalKey, textIV));
+        //Encoding decrypted message in base 64
+        String decryptedMessageBase64 = aesTest2.decrypt(textToDecode, originalKey, retrieved_iv); // Takes the raw descrypted message
+
+        byte[] decryptedBase64Bytes = Base64.getEncoder().encode(decryptedMessageBase64.getBytes()); //Encodes the raw message into base 64
+
+        String encodedDecryptedMessage = new String(decryptedBase64Bytes); //Converts the encoded decrypted message into a string
+
+        aesFieldOutPut.setText(encodedDecryptedMessage);
 
     }
 

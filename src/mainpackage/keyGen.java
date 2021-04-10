@@ -36,8 +36,6 @@ public class keyGen {
 
     public String generateIV() throws NoSuchAlgorithmException, NoSuchPaddingException {
 
-        String Test = "";
-
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
 
         SecureRandom randomSecureRandom = new SecureRandom();
@@ -46,7 +44,7 @@ public class keyGen {
 
         IvParameterSpec ivParams = new IvParameterSpec(iv);
 
-       //ENCODE IN BASE 64
+        //ENCODE IN BASE 64
         byte[] encodedIVBytes = Base64.getEncoder().encode(ivParams.getIV());
 
         String encodedIVArray = new String(encodedIVBytes);

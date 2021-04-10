@@ -8,13 +8,11 @@ import javax.crypto.spec.IvParameterSpec;
 
 public class Encryption {
 
-    public byte[] encrypt(String text, SecretKey key, String stringiv) throws Exception {
-
-        IvParameterSpec iv = new IvParameterSpec(stringiv.getBytes());
+    public byte[] encrypt(String text, SecretKey key, IvParameterSpec ivparameterspec) throws Exception {
 
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
 
-        cipher.init(Cipher.ENCRYPT_MODE, key, iv);
+        cipher.init(Cipher.ENCRYPT_MODE, key, ivparameterspec);
 
         byte[] encrypted = cipher.doFinal(text.getBytes("UTF-8"));
 
@@ -22,13 +20,11 @@ public class Encryption {
 
     }
 
-    public String decrypt(String encodedMessage, SecretKey key, String stringiv) throws Exception,BadPaddingException {
-
-        IvParameterSpec iv = new IvParameterSpec(stringiv.getBytes("UTF-8"));
+    public String decrypt(String encodedMessage, SecretKey key, IvParameterSpec ivparameterspec) throws Exception, BadPaddingException {
 
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
 
-        cipher.init(Cipher.DECRYPT_MODE, key, iv);
+        cipher.init(Cipher.DECRYPT_MODE, key, ivparameterspec);
 
         byte[] decryptedMessage = cipher.doFinal(Base64.getDecoder().decode(encodedMessage));
 
